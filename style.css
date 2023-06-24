@@ -16,8 +16,14 @@ a {
 /* ヘッダー */
 header {
   background-image: url(background-header.png);
+  background-size: cover;
   background-size: contain;
   text-align: center;
+}
+
+.header img {
+  width: calc(100% - 64px);
+  height: auto;
 }
 
 header img {
@@ -137,8 +143,16 @@ footer {
 
 @media (max-width: 816px){
 
+  .header img {
+
+  }
+
   .main {
     margin: 0 auto;
+  }
+
+  .main img {
+    width: calc(100% - 32px);
   }
 
   .container {
