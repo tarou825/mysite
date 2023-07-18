@@ -2,7 +2,6 @@
 
 body {
   margin: 0;
-  letter-spacing: 0.1em;
 }
 
 img {
@@ -11,6 +10,27 @@ img {
 
 a {
   text-decoration: none;
+}
+
+.pagetop {
+  cursor: pointer;
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  transition: .3s;
+  color: #555;
+  background: #fff;
+  /* opacity: 0; */
+}
+
+.pagetop:hover {
+  box-shadow: 0 0 32px #fff;
 }
 
 /* ヘッダー */
@@ -84,6 +104,7 @@ h1 {
   font-weight: normal;
   margin: 0;
   padding: 32px 0;
+  letter-spacing: 1em;
 }
 
 h2 {
@@ -91,6 +112,7 @@ h2 {
   font-weight: normal;
   margin: 96px 0 0;
   padding-top: 16px;
+  letter-spacing: 0.3em;
 }
 
 .container {
@@ -142,10 +164,6 @@ footer {
 }
 
 @media (max-width: 816px){
-
-  .header img {
-
-  }
 
   .main {
     margin: 0 auto;
