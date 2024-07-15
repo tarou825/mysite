@@ -73,6 +73,8 @@ ul {
 }
 
 li {
+  display: inline-block;
+  overflow: hidden;
   list-style: none;
   box-sizing: border-box;
   width: 25%;
@@ -81,14 +83,15 @@ li {
 }
 
 nav a {
-  display: inline-block;
   height: 64px;
   display: grid;
+  text-align:center;
   place-items: center;  
   color: #555;
   font-size: 16px;
   text-decoration: none;
   letter-spacing: 0.2em;
+  text-indent: 0.2em;
 }
 
 nav a:hover {
@@ -113,14 +116,17 @@ h1 {
   margin: 0;
   padding: 32px 0;
   letter-spacing: 1em;
+  text-indent: 1em;
 }
 
 h2 {
-  font-size: 18px;
+  color: black;
+  font-size: 22px;
   font-weight: normal;
   margin: 96px 0 0;
   padding-top: 16px;
   letter-spacing: 0.3em;
+  text-indent: 0.3em;
 }
 
 .container {
@@ -154,15 +160,17 @@ h3 {
 
 p {
   margin: 0;
-  padding: 32px 0 0 0;
+  padding: 16px 0 0 0;
   line-height: 1.8em;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.2em;
 }
 
 main a {
   display: block;
   margin-top: 96px;
   color: whitesmoke;
+  letter-spacing: 0.2em;
+  text-indent: 0.2em;
 }
 
 /* フッター */
@@ -171,6 +179,7 @@ footer {
   padding: 16px 0;
   text-align: center;
   background: lavender;
+  letter-spacing: 0.2em;
 }
 
 @media (max-width: 816px){
@@ -181,6 +190,7 @@ footer {
 
   .main img {
     width: calc(100% - 32px);
+    height: auto;
   }
 
   .container {
@@ -196,6 +206,13 @@ footer {
   h3 {
     text-align: center;
     margin-top: 32px;
+  }
+
+  p {
+    margin: 0;
+    padding: 32px 0 0 0;
+    line-height: 1.8em;
+    letter-spacing: 0.3em;
   }
  
 }
