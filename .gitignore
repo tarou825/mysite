@@ -1,0 +1,52 @@
+# ==============================
+# Python
+# ==============================
+
+# 仮想環境
+.venv/
+
+# Pythonキャッシュ
+__pycache__/
+*.py[cod]
+*$py.class
+
+# テスト・解析ツールのキャッシュ
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ==============================
+# IDE / Editor
+# ==============================
+
+# VS Codeの個人設定
+.vscode/
+
+# JetBrains系
+.idea/
+
+# ==============================
+# OS
+# ==============================
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# ==============================
+# Temporary files
+# ==============================
+
+*.tmp
+*.temp
+*.bak
+*~
+
+# WebサイトではWebPのみ使用
+img/*.jpg
+img/*.jpeg
+img/*.JPG
+img/*.JPEG
