@@ -58,14 +58,14 @@
   function renderBooks(books) {
     const fragment = document.createDocumentFragment();
 
-    books.forEach((book) => {
-      fragment.appendChild(createBookCard(book));
+    books.forEach((book, index) => {
+      fragment.appendChild(createBookCard(book, index, books));
     });
 
     list.replaceChildren(fragment);
   }
 
-  function createBookCard(book) {
+  function createBookCard(book, index, books) {
     const button = document.createElement('button');
     button.className = 'book-card';
     button.type = 'button';
@@ -81,12 +81,12 @@
     titleOverlay.innerHTML = book.title;
 
     button.append(image, titleOverlay);
-    button.addEventListener('click', () => openBookModal(book));
+    button.addEventListener('click', () => openBookModal(book, index, books, button));
 
     return button;
   }
 
-  function openBookModal(book) {
+  function openBookModal(book, index, books, trigger) {
     const modal = document.createElement('div');
     modal.className = 'book-modal';
     modal.setAttribute('role', 'dialog');
@@ -95,22 +95,18 @@
 
     modal.innerHTML = `
       <div class="book-modal__backdrop" data-close-modal></div>
-      <div class="book-modal__panel">
+      <section class="book-modal__panel" aria-labelledby="book-modal-title">
         <button class="book-modal__close" type="button" aria-label="詳細を閉じる" data-close-modal>×</button>
-        <div class="book-modal__image-wrap">
-          <img class="book-modal__image" src="${book.img}" alt="${escapeHtml(stripHtml(book.title))}">
-        </div>
-        <div class="book-modal__content">
-          <h3 class="book-modal__title">${book.title}</h3>
-          <p class="book-modal__description">${book.description}</p>
-        </div>
-      </div>
+        <div class="book-modal__image-wrap"></div>
+        <div class="book-modal__content"></div>
+      </section>
     `;
 
     const closeModal = () => {
       modal.remove();
       document.body.classList.remove('modal-open');
       document.removeEventListener('keydown', handleEscape);
+      trigger.focus();
     };
 
     const handleEscape = (event) => {
@@ -119,10 +115,48 @@
       }
     };
 
-    modal.querySelectorAll('[data-close-modal]').forEach((element) => {
-      element.addEventListener('click', closeModal);
+    const renderBook = (bookIndex) => {
+      const currentBook = books[bookIndex];
+      const imageWrap = modal.querySelector('.book-modal__image-wrap');
+      const content = modal.querySelector('.book-modal__content');
+
+      modal.setAttribute('aria-label', `${stripHtml(currentBook.title)}の詳細`);
+      imageWrap.innerHTML = `
+        <img class="book-modal__image" src="${currentBook.img}" alt="${escapeHtml(stripHtml(currentBook.title))}">
+      `;
+      content.innerHTML = `
+        <h3 class="book-modal__title" id="book-modal-title">${currentBook.title}</h3>
+        <div class="book-modal__description">${currentBook.description}</div>
+        <nav class="book-modal__pagination" aria-label="巻を移動">
+          <button class="book-modal__action" type="button" data-book-index="${bookIndex - 1}" ${bookIndex === 0 ? 'disabled' : ''}>
+            ← 前の巻
+          </button>
+          <span>${bookIndex + 1} / ${books.length}</span>
+          <button class="book-modal__action" type="button" data-book-index="${bookIndex + 1}" ${bookIndex === books.length - 1 ? 'disabled' : ''}>
+            次の巻 →
+          </button>
+        </nav>
+      `;
+    };
+
+    modal.addEventListener('click', (event) => {
+      if (!(event.target instanceof Element)) {
+        return;
+      }
+
+      if (event.target.closest('[data-close-modal]')) {
+        closeModal();
+        return;
+      }
+
+      const pageButton = event.target.closest('[data-book-index]');
+      if (pageButton && !pageButton.disabled) {
+        index = Number(pageButton.dataset.bookIndex);
+        renderBook(index);
+      }
     });
 
+    renderBook(index);
     document.body.appendChild(modal);
     document.body.classList.add('modal-open');
     document.addEventListener('keydown', handleEscape);

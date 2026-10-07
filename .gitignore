@@ -50,3 +50,5 @@ img/*.jpg
 img/*.jpeg
 img/*.JPG
 img/*.JPEG
+
+tools/*
