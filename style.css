@@ -258,12 +258,15 @@ h2::after {
   place-items: stretch;
   padding: 0;
   box-sizing: border-box;
+  animation: book-modal-fade-in 0.38s ease both;
 }
 
 .book-modal__backdrop {
   position: absolute;
   inset: 0;
-  background: #f4f1e8;
+  background: rgba(244, 241, 232, 0.72);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 .book-modal__panel {
@@ -281,6 +284,37 @@ h2::after {
   color: #56615d;
   text-align: left;
   font-family: "Yu Mincho", "Hiragino Mincho ProN", serif;
+  transform-origin: center;
+  animation: book-modal-open 0.48s cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+@keyframes book-modal-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes book-modal-open {
+  from {
+    opacity: 0.7;
+    transform: scale(0.975);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book-modal,
+  .book-modal__panel {
+    animation-duration: 0.01ms;
+  }
 }
 
 .book-modal__close {
